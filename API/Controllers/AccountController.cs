@@ -9,8 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    //[AllowAnonymous] // ensures that all the endpoints no longer need authentication
-    [ApiController] // when the request is made, an api application will be used to auntenticate the user
+    [ApiController]
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
@@ -20,7 +19,6 @@ namespace API.Controllers
         {
             _tokenService = tokenService;
             _userManager = userManager;
-
         }
 
         [AllowAnonymous]
@@ -37,6 +35,7 @@ namespace API.Controllers
             {
                 return CreateUserObject(user);
             }
+
             return Unauthorized();
         }
 
@@ -46,14 +45,12 @@ namespace API.Controllers
         {
             if (await _userManager.Users.AnyAsync(x => x.UserName == registerDto.Username))
             {
-                //return BadRequest("Username is already taken");
                 ModelState.AddModelError("username", "Username taken");
                 return ValidationProblem();
             }
 
             if (await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
             {
-                //return BadRequest("Email is already taken");
                 ModelState.AddModelError("email", "Email taken");
                 return ValidationProblem();
             }
@@ -71,9 +68,11 @@ namespace API.Controllers
             {
                 return CreateUserObject(user);
             }
+
             return BadRequest(result.Errors);
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
