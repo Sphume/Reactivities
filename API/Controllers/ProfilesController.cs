@@ -16,5 +16,12 @@ namespace API.Controllers
         {
             return HandleResult(await Mediator.Send(command)); // adds endpoint for editing the profile
         }
+
+        [HttpGet("{username}/activities")] //create an endpoint
+        public async Task<IActionResult> GetUserActivities(string username, string predicate) {
+            return HandleResult(await Mediator.Send(new ListActivities.Query {
+                Username = username, Predicate = predicate
+            }));
+        }
     }
 }
