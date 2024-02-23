@@ -1,0 +1,3 @@
+**/bin
+**/obj
+# command for building a docker image in a terminal: docker build -t trycatchlearn/(name for the pic created) . (with a period)
