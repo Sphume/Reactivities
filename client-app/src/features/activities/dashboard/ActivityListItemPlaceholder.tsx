@@ -30,5 +30,5 @@ export default function ActivityListItemPlaceholder() {
                 </Segment.Group>
             </Placeholder>
         </Fragment>
-    );
-};
+    )
+}

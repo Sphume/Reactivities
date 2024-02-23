@@ -15,7 +15,7 @@ export default class CommentStore {
         if (store.activityStore.selectedActivity) {
             this.hubConnection = new HubConnectionBuilder()
                 .withUrl(import.meta.env.VITE_CHAT_URL + '?activityId=' + activityId, {
-                    accessTokenFactory: () => store.userStore.user?.token!
+                    accessTokenFactory: () => store.userStore.user?.token! as string
                 })
                 .withAutomaticReconnect()
                 .configureLogging(LogLevel.Information)
@@ -26,7 +26,7 @@ export default class CommentStore {
             this.hubConnection.on('LoadComments', (comments: ChatComment[]) => {
                 runInAction(() => {
                     comments.forEach(comment => {
-                        comment.createdAt = new Date(comment.createdAt + 'Z');
+                        comment.createdAt = new Date(comment.createdAt);
                     });
                     this.comments = comments;
                 });
@@ -50,7 +50,7 @@ export default class CommentStore {
         this.stopHubConnection();
     }
 
-    addComment = async (values: any) => {
+    addComment = async (values: {body: string, activityId?: string}) => {
         values.activityId = store.activityStore.selectedActivity?.id;
         try {
             await this.hubConnection?.invoke('SendComment', values);

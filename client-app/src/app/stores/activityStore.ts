@@ -162,7 +162,7 @@ export default class ActivityStore {
             await agent.Activities.update(activity);
             runInAction(() => {
                 if (activity.id) {
-                    let updatedActivity = { ...this.getActivity(activity.id), ...activity };
+                    const updatedActivity = { ...this.getActivity(activity.id), ...activity };
                     this.activityRegistry.set(activity.id, updatedActivity as Activity);
                     this.selectedActivity = updatedActivity as Activity;
                 }
