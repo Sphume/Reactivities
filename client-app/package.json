@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@greatsumini/react-facebook-login": "^3.3.3",
     "@microsoft/signalr": "^8.0.0",
     "@types/react-calendar": "^4.1.0",
     "axios": "^1.6.7",

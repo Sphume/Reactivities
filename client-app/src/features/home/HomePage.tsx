@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { Button, Container, Header, Image, Segment } from "semantic-ui-react";
+import { Button, Container, Divider, Header, Image, Segment } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
 import { observer } from "mobx-react-lite";
 import LoginForm from "../users/LoginForm";
 import RegisterForm from "../users/RegisterForm";
+import FacebookLogin from '@greatsumini/react-facebook-login';
 
 export default observer(function HomePage() {
     const { userStore, modalStore } = useStore();
@@ -29,6 +30,8 @@ export default observer(function HomePage() {
                         <Button onClick={() => modalStore.openModal(<RegisterForm/>)} as={Link} to='/login' size='huge' inverted>
                             Register
                         </Button>
+                        <Divider horizontal inverted>Or</Divider>
+                        <FacebookLogin appId="" />
                     </>
                 )}
             </Container>
